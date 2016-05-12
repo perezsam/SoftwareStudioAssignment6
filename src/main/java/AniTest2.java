@@ -47,8 +47,8 @@ class Cirlce2 {
 	    float duration = 2.2f;
 	    x = theX;
 	    y = theY;
-	    posAniX = Ani.to(this, duration, theDelay, "x", 512/2, Ani.ELASTIC_OUT);
-	    posAniY = Ani.to(this, duration, theDelay, "y", 512/2, Ani.ELASTIC_OUT);
+	    //posAniX = Ani.to(this, duration, theDelay, "x", 512/2, Ani.ELASTIC_OUT);
+	    //posAniY = Ani.to(this, duration, theDelay, "y", 512/2, Ani.ELASTIC_OUT);
 	    this.parent=parent;
 	  }
 
@@ -65,5 +65,9 @@ class Cirlce2 {
 	    	e.printStackTrace();
 	    }
 	    
+	  }
+	  
+	  public void mouseReleased(){
+		  System.out.println("click");
 	  }
 	}
