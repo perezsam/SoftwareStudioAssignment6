@@ -1,0 +1,35 @@
+Several different libraries were used in this project:
+
+1. Processing
+2. ControlP5
+3. Ani
+
+Some difficulties that were found:
+
+1. The controlP5 objects were not able to be animated and hold their listener at the same time. 
+   The animations was done successful but, because their listeners depends on their name, so we decided to use static controlP5 objects and animated Ani objects.
+   
+2. The constructors of the Ani objects depended on the information of the JSON files, which were parsed on the load() method.
+   We decided to construct the "characters" arraylist to hold the data and then reconstruct them as the "circles" arraylist.
+   
+Instructions to use:
+
+1. In order to select / change episode, use the menu bar at the top.
+2. The actors are by default in a circle that represents the selected episode. 
+   In order to interact with them, click in their names on the left side.
+3. When two or more actors have a link, a line will appear between them, and the number above the line represents the amount of times the actors spoke to each other.
+4. The "clear all" and "select all" buttons deselect and selects all the actors in that particular episode.
+
+NOTES:
+
+1. Because the Ani objects have their delay in the animations, the "Drawing... please wait..." label was implemented.
+2. Each time an actor is selected / deselected, the program needs to verify:
+   2.1   All the selected/deselected actors and add/remove them from the circle.
+   2.2   All the links between the remaining actors.
+
+Animation design (EXTRA 20%):
+
+A customized animation was implemented in this project. 
+1. When selecting the actors, they use the Ani.QUINT_IN_OUT animation to move to the circle.
+2. When deselecting an actor, it keeps using the Ani.QUINT_IN_OUT animation and goes to the right side of the window above the "clear all" and "select all" buttrons in its respective position. 
+
