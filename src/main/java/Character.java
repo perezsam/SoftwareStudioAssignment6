@@ -18,6 +18,7 @@ public class Character {
 	public String color;
 	
 	private ArrayList<Character> targets;
+	public ArrayList<Integer> valuesOfLinks;
 	
 	Ani animation;
 
@@ -27,6 +28,7 @@ public class Character {
 		this.x=x;
 		this.y=y;
 		this.targets = new ArrayList<Character>();
+		this.valuesOfLinks=new ArrayList<Integer>();
 		this.color=color;
 		
 	}
@@ -46,8 +48,16 @@ public class Character {
 		this.targets.add(target);
 	}
 	
+	public void addLinkValue(int value){
+		this.valuesOfLinks.add(value);
+	}
+	
 	public ArrayList<Character> getTargets(){
 		return this.targets;
+	}
+	
+	public ArrayList<Integer> getValuesOfLinks(){
+		return this.valuesOfLinks;
 	}
 	
 	public static int randInt(int min, int max) {

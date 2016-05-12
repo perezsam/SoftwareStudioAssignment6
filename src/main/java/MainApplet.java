@@ -19,8 +19,10 @@ import de.looksgood.ani.*;
  */
 @SuppressWarnings("serial")
 public class MainApplet extends PApplet {
+	
+	
 	private String path = "main/resources/";
-	private String file = "starwars-episode-1-interactions.json";
+	private String file;
 
 	JSONObject data;
 	JSONArray nodes, links;
@@ -37,6 +39,10 @@ public class MainApplet extends PApplet {
 	public ArrayList<Float> listOfYPositions;
 
 	public int counter;
+	
+	public MainApplet(String file){
+		this.file=file;
+	}
 	
 	public void setup() {
 
@@ -62,14 +68,22 @@ public class MainApplet extends PApplet {
 		
 		myTextlabelA = cp5.addTextlabel("label")
                 .setText(" ")
-                .setPosition(width/(2.3f),height*3/(3.2f))
+                .setPosition(width/(2.3f),40f)
                 .setColorValue(0xffffff00)
                 .setFont(createFont("Georgia",20))
                 ;
 		
-
-		
 		loadData();
+				
+		cp5.addButton("addAll")
+			.setLabel("Add all")
+			.setPosition(width/(1.225f), 50f+15f*characters.size())
+			.setSize(100, 30);
+		
+		cp5.addButton("eraseAll")
+			.setLabel("Erase all")
+			.setPosition(width/(1.225f), 90f+15f*characters.size())
+			.setSize(100, 30);
 
 		noStroke();
 
@@ -111,8 +125,7 @@ public class MainApplet extends PApplet {
 		    // checkbox uses arrayValue to store the state of 
 		    // individual checkbox-items. usage:
 		    System.out.println(checkbox.getArrayValue());
-		    int col = 0;
-		    
+
 		    counter=1;
 		    
 		    for (int i=0;i<checkbox.getArrayValue().length;i++) {
@@ -130,6 +143,30 @@ public class MainApplet extends PApplet {
 		    System.out.println();    
 		  }
 		}
+	
+	public void addAll(){
+		counter=1;
+	    
+	    for (int i=0;i<checkbox.getArrayValue().length;i++) {
+	      checkbox.getArrayValue()[i]=1;
+    	  cirlces[i].untriggerAnimation(listOfXPositions.get(i),listOfYPositions.get(i));
+    	  if (checkbox.getState(i)==false){
+    		  checkbox.toggle(i);
+    	  }
+	    }
+	}
+	
+	public void eraseAll(){
+		counter=1;
+	    
+	    for (int i=0;i<checkbox.getArrayValue().length;i++) {
+	      checkbox.getArrayValue()[i]=0;
+    	  cirlces[i].triggerAnimation();
+    	  if (checkbox.getState(i)==true){
+    		  checkbox.toggle(i);
+    	  }
+	    }
+	}
 
 	public void draw() {
 		background(0);
@@ -169,7 +206,15 @@ public class MainApplet extends PApplet {
 		    				
 		    				float textCoordinateX=abs(characters.get(i).x+characters.get(j).x)/2;
 		    				float textCoordinateY=abs(characters.get(i).y+characters.get(j).y)/2;
-		    				text("A", textCoordinateX,textCoordinateY);
+		    				
+		    				//System.out.println("i="+i+"/ j="+j);
+		    				if(!(i==j)){
+		    					stroke(255,255,0);
+		    					text(characters.get(i).getValuesOfLinks().get(j), textCoordinateX,textCoordinateY);
+		    					
+		    				}
+		    				
+		    				
 		    			}else{
 		    				//stroke(0, 0, 0);
 		    				//line(characters.get(i).x,characters.get(i).y,characters.get(j).x,characters.get(j).y);
@@ -236,7 +281,10 @@ public class MainApplet extends PApplet {
 			// "+characters.get(linkTarget).name);
 
 			characters.get(linkSource).addTarget(characters.get(linkTarget));
+			characters.get(linkSource).addLinkValue(linkValue);
 		}
+		
+		
 	}
 
 	public static int randInt(int min, int max) {
